@@ -20,7 +20,8 @@ class Button extends Component {
                     width: this.state.width,
                     height: this.state.height,
                     border: '1px solid #000',
-                }}> {this.state.caption}</button>
+                    cursor: 'pointer'
+                }}> {this.state.caption}{console.log(this.props)}</button>
         )
     }
 }

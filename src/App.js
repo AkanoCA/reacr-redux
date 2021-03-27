@@ -1,11 +1,15 @@
 import React from 'react'
 import './App.scss'
-import Constructor from './components/Constructor'
+import ConstructorBar from './components/ConstructorBar'
+import ConstructorDisplay from './components/ConstructorDisplay'
 
 function App() {
   return (
     <div className="container">
-      <Constructor />
+      <div className="constructor__container">
+          <ConstructorBar />
+          <ConstructorDisplay />
+      </div>
     </div>
   );
 }

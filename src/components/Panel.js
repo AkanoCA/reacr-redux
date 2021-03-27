@@ -1,27 +1,30 @@
 import React, { Component } from 'react'
+import { connect } from 'react-redux'
 
 class Panel extends Component {
     constructor() {
         super()
-
-        this.state = {
-            width: 200,
-            height: 100,
-            isVisible: true
-        }
     }
     render() {
         return (
-            this.state.isVisible
+            this.props.isVisible
             && <div
                 className="panel"
                 style={{
-                    width: this.state.width,
-                    height: this.state.height,
+                    width: this.props.width,
+                    height: this.props.height,
                     border: '1px solid #000',
                 }}></div>
         )
     }
 }
 
-export default Panel
+const mapStateToProps = state => {
+    return {
+        width: state.panel.width,
+        height: state.panel.height,
+        isVisible: state.panel.isVisible
+    }
+}
+
+export default connect(mapStateToProps, null)(Panel)
