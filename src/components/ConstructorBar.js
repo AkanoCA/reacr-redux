@@ -36,7 +36,7 @@ class ConstructorBar extends Component {
         visible: true
       }
     }
-  ]
+  ];
 
   handleClick = () => {
     this.props.changeStyle(+this.state.value);
