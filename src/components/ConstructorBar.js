@@ -1,6 +1,9 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { changeStyle } from '../redux/actions'
+import { changePanel, changeLabel, changeButton } from '../redux/actions'
+import Button from './Button'
+import Label from './Label'
+import Panel from './Panel'
 
 class ConstructorBar extends Component {
   constructor() {
@@ -24,7 +27,7 @@ class ConstructorBar extends Component {
     {
       type: 'label',
       props: {
-        caption: 'test',
+        caption: 'test1',
         visible: true
       }
     },
@@ -33,13 +36,14 @@ class ConstructorBar extends Component {
       props: {
         width: 100,
         height: 50,
+        caption: 'Accept',
         visible: true
       }
     }
   ];
 
   handleClick = () => {
-    this.props.changeStyle(+this.state.value);
+    this.props.changePanel(+this.state.value);
   }
 
   handleChange = e => {
@@ -51,32 +55,57 @@ class ConstructorBar extends Component {
     ))
   };
 
+  handleContent = (content) => {
+    return content.map((item) => {
+      switch (item.type) {
+        case 'panel':
+          this.props.changePanel(item.props);
+          return <Panel />
+        case 'label':
+          this.props.changeLabel(item.props)
+          return <Label />
+        case 'button':
+          this.props.changeButton(item.props)
+          return <Button />
+      }
+    }
+    )
+  }
+
   render() {
     return (
-      <div className="constructor__bar">
-        <div className="field">
-          <span className="field__title">Путь</span>
-          <input type="text" className="field__input" />
+      <div className="constructor__container">
+        <div className="constructor__bar">
+          <div className="field">
+            <span className="field__title">Путь</span>
+            <input type="text" className="field__input" />
+          </div>
+          <div className="field">
+            <span className="field__title">Новое значение</span>
+            <input
+              name="value"
+              type="text"
+              className="field__input"
+              onChange={this.handleChange} />
+          </div>
+          <button
+            className="constructor__button"
+            onClick={this.handleClick}
+          >Применить</button>
         </div>
-        <div className="field">
-          <span className="field__title">Новое значение</span>
-          <input
-            name="value"
-            type="text"
-            className="field__input"
-            onChange={this.handleChange} />
+
+        <div className="constructor__display">
+          {this.handleContent(this.content)}
         </div>
-        <button
-          className="constructor__button"
-          onClick={this.handleClick}
-        >Применить</button>
       </div>
     )
   }
 }
 
 const mapDispatchToProps = {
-  changeStyle
+  changePanel,
+  changeLabel,
+  changeButton,
 }
 
 export default connect(null, mapDispatchToProps)(ConstructorBar);

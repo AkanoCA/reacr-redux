@@ -1,29 +1,32 @@
 import React, { Component } from 'react'
+import { connect } from 'react-redux'
 
 class Button extends Component {
     constructor() {
         super()
-
-        this.state = {
-            caption: 'Accept',
-            width: 100,
-            height: 50,
-            isVisible: true
-        }
     }
     render() {
         return (
-            this.state.isVisible
+            this.props.isVisible
             && <button
                 className="panel"
                 style={{
-                    width: this.state.width,
-                    height: this.state.height,
+                    width: this.props.width,
+                    height: this.props.height,
                     border: '1px solid #000',
                     cursor: 'pointer'
-                }}> {this.state.caption}{console.log(this.props)}</button>
+                }}> {this.props.caption}{console.log(this.props)}</button>
         )
     }
 }
 
-export default Button
+const mapStateToProps = state => {
+    return {
+        width: state.button.width,
+        height: state.button.height,
+        caption: state.button.caption,
+        isVisible: state.button.isVisible
+    }
+}
+
+export default connect(mapStateToProps, null)(Button)

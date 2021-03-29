@@ -1,1 +1,3 @@
-export const CHANGE_STYLE = 'CHANGE_STYLE'
+export const CHANGE_PANEL = 'CHANGE_PANEL'
+export const CHANGE_LABEL = 'CHANGE_LABEL'
+export const CHANGE_BUTTON = 'CHANGE_BUTTON'
