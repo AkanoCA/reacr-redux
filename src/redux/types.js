@@ -1,3 +1,3 @@
-export const CHANGE_PANEL = 'CHANGE_PANEL'
-export const CHANGE_LABEL = 'CHANGE_LABEL'
-export const CHANGE_BUTTON = 'CHANGE_BUTTON'
+export const PANEL_WIDTH = 'PANEL_WIDTH'
+export const PANEL_HEIGHT = 'PANEL_HEIGHT'
+export const PANEL_VISIBLE = 'PANEL_VISIBLE'

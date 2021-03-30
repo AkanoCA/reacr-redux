@@ -1,15 +1,16 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { changePanel, changeLabel, changeButton } from '../redux/actions'
+import { changePanelWidth, changePanelHeight, changePanelVisible } from '../redux/actions'
 import Button from './Button'
 import Label from './Label'
 import Panel from './Panel'
 
 class ConstructorBar extends Component {
-  constructor() {
+  constructor(props) {
     super()
 
     this.state = {
+      patch: '',
       value: '',
     }
 
@@ -18,9 +19,22 @@ class ConstructorBar extends Component {
 
   handleClick = () => {
 
-    this.props.changePanel({
-      width: this.state.value,
-    })
+    switch (this.state.patch) {
+      case 'width':
+        this.props.changePanelWidth(+this.state.value)
+        break;
+      case 'height':
+        this.props.changePanelHeight(+this.state.value)
+        break;
+      case 'visible':
+        this.props.changePanelVisible(+this.state.value)
+        break;
+      default: 
+      alert('Где-то ошибка...')
+
+    }
+
+
   }
 
   handleChange = e => {
@@ -39,7 +53,11 @@ class ConstructorBar extends Component {
         <div className="constructor__bar">
           <div className="field">
             <span className="field__title">Путь</span>
-            <input type="text" className="field__input" />
+            <input
+              name="patch"
+              type="text"
+              className="field__input"
+              onChange={this.handleChange} />
           </div>
           <div className="field">
             <span className="field__title">Новое значение</span>
@@ -56,7 +74,7 @@ class ConstructorBar extends Component {
         </div>
 
         <div className="constructor__display">
-
+          <Panel />
         </div>
       </div>
     )
@@ -64,9 +82,9 @@ class ConstructorBar extends Component {
 }
 
 const mapDispatchToProps = {
-  changePanel,
-  changeLabel,
-  changeButton,
+  changePanelWidth,
+  changePanelHeight,
+  changePanelVisible
 }
 
 export default connect(null, mapDispatchToProps)(ConstructorBar);

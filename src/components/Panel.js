@@ -16,10 +16,9 @@ function Panel ({params})  {
     )
 }
 
-const mapStateToProps = (state, props) => {
-    let {id} = props;
+const mapStateToProps = (state) => {
     return {
-        params: state.panels[id]
+        params: state.panelReducer
     }
 }
 

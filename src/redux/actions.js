@@ -1,20 +1,22 @@
-import { CHANGE_PANEL, CHANGE_LABEL, CHANGE_BUTTON } from "./types";
+import { PANEL_HEIGHT, PANEL_VISIBLE, PANEL_WIDTH } from "./types";
 
-export function changePanel(options) {
+export function changePanelWidth(options) {
     return {
-        type: CHANGE_PANEL,
+        type: PANEL_WIDTH,
         payload: options
     }
 }
-export function changeLabel(options) {
+
+export function changePanelHeight(options) {
     return {
-        type: CHANGE_LABEL,
+        type: PANEL_HEIGHT,
         payload: options
     }
 }
-export function changeButton(options) {
+
+export function changePanelVisible(options) {
     return {
-        type: CHANGE_BUTTON,
+        type: PANEL_VISIBLE,
         payload: options
     }
 }
