@@ -10,40 +10,17 @@ class ConstructorBar extends Component {
     super()
 
     this.state = {
-      value: ''
+      value: '',
     }
 
   }
 
-  content = [
-    {
-      type: 'panel',
-      props: {
-        width: 500,
-        height: 200,
-        visible: true
-      }
-    },
-    {
-      type: 'label',
-      props: {
-        caption: 'test1',
-        visible: true
-      }
-    },
-    {
-      type: 'button',
-      props: {
-        width: 100,
-        height: 50,
-        caption: 'Accept',
-        visible: true
-      }
-    }
-  ];
 
   handleClick = () => {
-    this.props.changePanel(+this.state.value);
+
+    this.props.changePanel({
+      width: this.state.value,
+    })
   }
 
   handleChange = e => {
@@ -55,22 +32,6 @@ class ConstructorBar extends Component {
     ))
   };
 
-  handleContent = (content) => {
-    return content.map((item) => {
-      switch (item.type) {
-        case 'panel':
-          this.props.changePanel(item.props);
-          return <Panel />
-        case 'label':
-          this.props.changeLabel(item.props)
-          return <Label />
-        case 'button':
-          this.props.changeButton(item.props)
-          return <Button />
-      }
-    }
-    )
-  }
 
   render() {
     return (
@@ -95,7 +56,7 @@ class ConstructorBar extends Component {
         </div>
 
         <div className="constructor__display">
-          {this.handleContent(this.content)}
+
         </div>
       </div>
     )

@@ -1,24 +1,20 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 
-class Label extends Component {
-    constructor() {
-        super()
-    }
-    render() {
-        return (
-            this.props.isVisible
-            && <div className="label">{this.props.caption}</div>
-        )
-    }
+function Label (props)  {
+    let {params} = props;
+    let {id} = props;
+
+    return (
+        params[id].visible
+        && <span className="label">{params[id].caption}</span>
+    )
 }
 
 const mapStateToProps = state => {
     return {
-        caption: state.label.caption,
-        isVisible: state.label.isVisible
+        params: state.labels
     }
-
 }
 
 export default connect(mapStateToProps, null)(Label)
