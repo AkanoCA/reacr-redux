@@ -1,19 +1,16 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 
-function Label (props)  {
-    let {params} = props;
-    let {id} = props;
-
+function Label ({params})  {
     return (
-        params[id].visible
-        && <span className="label">{params[id].caption}</span>
+        params.visible
+        && <span className="label">{params.caption}</span>
     )
 }
 
-const mapStateToProps = state => {
+const mapStateToProps = (state, props) => {
     return {
-        params: state.labels
+        params: state.content[props.id].props
     }
 }
 

@@ -17,9 +17,8 @@ function Button ({params})  {
 }
 
 const mapStateToProps = (state, props) => {
-    let {id} = props;
     return {
-        params: state.buttons[id]
+        params: state.content[props.id].props
     }
 }
 

@@ -2,8 +2,6 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 
 function Panel ({params})  {
-
-    console.log(params);
     return (
         params.visible
         && <div
@@ -16,9 +14,10 @@ function Panel ({params})  {
     )
 }
 
-const mapStateToProps = (state) => {
+const mapStateToProps = (state, props) => {
+    
     return {
-        params: state.panelReducer
+        params: state.content[props.id].props
     }
 }
 

@@ -12,6 +12,7 @@ class ConstructorBar extends Component {
     this.state = {
       patch: '',
       value: '',
+      id: 0
     }
 
   }
@@ -21,16 +22,22 @@ class ConstructorBar extends Component {
 
     switch (this.state.patch) {
       case 'width':
-        this.props.changePanelWidth(+this.state.value)
+        this.props.changePanelWidth({
+          width: +this.state.value,
+          id: +this.state.id
+        })
         break;
       case 'height':
-        this.props.changePanelHeight(+this.state.value)
+        this.props.changePanelHeight({
+          height: +this.state.value,
+          id: +this.state.id
+        })
         break;
       case 'visible':
         this.props.changePanelVisible(+this.state.value)
         break;
-      default: 
-      alert('Где-то ошибка...')
+      default:
+        alert('Где-то ошибка...')
 
     }
 
@@ -74,7 +81,16 @@ class ConstructorBar extends Component {
         </div>
 
         <div className="constructor__display">
-          <Panel />
+          {this.props.store.map((item, index) => {
+            switch (item.type) {
+              case 'panel':
+                return <Panel key={index} id={index} />
+              case 'label':
+                return <Label key={index} id={index} />
+              case 'button':
+                return <Button key={index} id={index} />
+            }
+          })}
         </div>
       </div>
     )
@@ -87,4 +103,10 @@ const mapDispatchToProps = {
   changePanelVisible
 }
 
-export default connect(null, mapDispatchToProps)(ConstructorBar);
+const mapStateToProps = state => {
+  return {
+    store: state.content
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(ConstructorBar);
