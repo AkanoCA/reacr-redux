@@ -1,6 +1,12 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { changePanelWidth, changePanelHeight, changePanelVisible } from '../redux/actions'
+import {
+  changeWidth,
+  changeHeight,
+  changeVisible,
+  changeCaption,
+  newItem
+} from '../redux/actions'
 import Button from './Button'
 import Label from './Label'
 import Panel from './Panel'
@@ -10,9 +16,11 @@ class ConstructorBar extends Component {
     super()
 
     this.state = {
+      items: '',
       patch: '',
       value: '',
-      id: 0
+      prop: '',
+      id: ''
     }
 
   }
@@ -20,27 +28,62 @@ class ConstructorBar extends Component {
 
   handleClick = () => {
 
-    switch (this.state.patch) {
+    this.handlePatch();
+    switch (this.state.prop) {
+
       case 'width':
-        this.props.changePanelWidth({
+        this.props.changeWidth({
           width: +this.state.value,
           id: +this.state.id
         })
         break;
+
       case 'height':
-        this.props.changePanelHeight({
+        this.props.changeHeight({
           height: +this.state.value,
           id: +this.state.id
         })
         break;
-      case 'visible':
-        this.props.changePanelVisible(+this.state.value)
+
+      case 'caption':
+        this.props.changeCaption({
+          caption: this.state.value,
+          id: +this.state.id
+        })
         break;
+
+      case 'visible':
+        this.props.changeVisible({
+          visible: JSON.parse(this.state.value),
+          id: +this.state.id
+        }
+        )
+        break;
+
+      case 'new':
+        let newItem = new Function(
+          'return (' + this.state.value + ')')();
+
+        this.props.newItem({
+          item: newItem
+        });
+
+        this.renderItems();
+        break;
+
       default:
         alert('Где-то ошибка...')
 
     }
+  }
 
+  handlePatch = () => { //преобразует значение из поля patch в id и свойство 
+    if (this.state.patch != '') {
+      let patchArr = this.state.patch.split(' ');
+      this.state.id = patchArr[0];
+      this.state.prop = patchArr[1];
+
+    } else this.state.prop = 'new'
 
   }
 
@@ -52,6 +95,20 @@ class ConstructorBar extends Component {
     }
     ))
   };
+
+  renderItems = () => {
+    this.state.items = this.props.store
+      .map((item, index) => {
+        switch (item.type) {
+          case 'panel':
+            return <Panel key={index} id={index} />
+          case 'label':
+            return <Label key={index} id={index} />
+          case 'button':
+            return <Button key={index} id={index} />
+        }
+      })
+  }
 
 
   render() {
@@ -81,16 +138,8 @@ class ConstructorBar extends Component {
         </div>
 
         <div className="constructor__display">
-          {this.props.store.map((item, index) => {
-            switch (item.type) {
-              case 'panel':
-                return <Panel key={index} id={index} />
-              case 'label':
-                return <Label key={index} id={index} />
-              case 'button':
-                return <Button key={index} id={index} />
-            }
-          })}
+          {this.renderItems()}
+          {this.state.items}
         </div>
       </div>
     )
@@ -98,9 +147,11 @@ class ConstructorBar extends Component {
 }
 
 const mapDispatchToProps = {
-  changePanelWidth,
-  changePanelHeight,
-  changePanelVisible
+  changeWidth,
+  changeHeight,
+  changeVisible,
+  changeCaption,
+  newItem
 }
 
 const mapStateToProps = state => {

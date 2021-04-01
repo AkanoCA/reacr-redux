@@ -27,6 +27,10 @@ body {
         margin-top: 30px;
 
         display: flex;
+        flex-wrap: wrap;
+        align-items: flex-start;
+        justify-content: start;
+        overflow-y: scroll;
 
         width: 900px;
         height: 600px;
@@ -59,5 +63,13 @@ body {
 }
 
 .panel {
+    transition: 0.2s ease-out;
+}
+
+.label {
+    transition: 0.2s ease-out;
+}
+
+.button {
     transition: 0.2s ease-out;
 }

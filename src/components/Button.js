@@ -6,7 +6,7 @@ function Button ({params})  {
     return (
         params.visible
         && <button
-        className="panel"
+        className="button"
         style={{
             width: params.width,
             height: params.height,

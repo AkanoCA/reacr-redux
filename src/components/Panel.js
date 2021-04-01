@@ -1,7 +1,8 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 
-function Panel ({params})  {
+function Panel ({params, content})  {
+    console.log(content);
     return (
         params.visible
         && <div
@@ -10,14 +11,17 @@ function Panel ({params})  {
                 width: params.width,
                 height: params.height,
                 border: '1px solid #000',
-            }}></div>
+            }}>
+
+
+            </div>
     )
 }
 
 const mapStateToProps = (state, props) => {
-    
     return {
-        params: state.content[props.id].props
+        params: state.content[props.id].props,
+        content: state.content[props.id].content,
     }
 }
 
