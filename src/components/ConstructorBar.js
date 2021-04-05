@@ -61,11 +61,8 @@ class ConstructorBar extends Component {
         break;
 
       case 'new':
-        let newItem = new Function(
-          'return (' + this.state.value + ')')();
-
         this.props.newItem({
-          item: newItem
+          item: eval('('+ this.state.value+')')
         });
 
         this.renderItems();
