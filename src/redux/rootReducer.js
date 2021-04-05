@@ -9,15 +9,17 @@ const initialState = {
         height: 100,
         visible: true
       },
-      content: {
-        type: 'button',
-        props: {
-          caption: 'Accept',
-          width: 100,
-          height: 50,
-          visible: true
-        }
-      }
+      content: [
+        {
+          type: 'button',
+          props: {
+            caption: 'Accept',
+            width: 100,
+            height: 50,
+            visible: true
+          }
+        },
+      ]
     },
     {
       type: 'panel',

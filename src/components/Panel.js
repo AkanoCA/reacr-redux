@@ -1,8 +1,30 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
+import Button from './Button';
+import Label from './Label';
 
-function Panel ({params, content})  {
+
+function Panel({ params, content }) {
     console.log(content);
+
+    let items = [];
+
+    function render() {
+        if (content) items = content
+            .map((item, index) => {
+                switch (item.type) {
+                    case 'panel':
+                        return <Panel key={index} id={index} />
+                    case 'label':
+                        return <Label key={index} id={index} />
+                    case 'button':
+                        return <Button key={index} id={index} />
+                }
+            }
+            )
+    }
+
+
     return (
         params.visible
         && <div
@@ -12,9 +34,9 @@ function Panel ({params, content})  {
                 height: params.height,
                 border: '1px solid #000',
             }}>
-
-
-            </div>
+            {render()}
+            {items}
+        </div>
     )
 }
 
